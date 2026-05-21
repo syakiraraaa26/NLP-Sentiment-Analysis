@@ -195,7 +195,75 @@ Model IndoBERT berhasil melakukan klasifikasi sentimen terhadap ulasan aplikasi 
 
 Hasil penelitian menunjukkan bahwa:
 
+- Akurasi model pada data testing mencapai 95%
+
+| Label | Precision | Recall | F1-Score | Support |
+|---|---|---|---|---|
+| Negative (0) | 0.94 | 0.96 | 0.95 | 750 |
+| Positive (1) | 0.96 | 0.94 | 0.95 | 750 |
+| Accuracy |  |  | 0.95 | 1500 |
+| Macro Avg | 0.95 | 0.95 | 0.95 | 1500 |
+| Weighted Avg | 0.95 | 0.95 | 0.95 | 1500 |
+
+<p align="justify">
+Berdasarkan hasil eksperimen yang dilakukan, model terbaik diperoleh pada konfigurasi hyperparameter berupa batch size sebesar 32, learning rate 1e-6, epoch sebanyak 9, dropout sebesar 0.3, dan weight decay sebesar 0.01. Kombinasi parameter tersebut mampu menghasilkan proses pelatihan yang stabil serta meminimalkan risiko overfitting selama proses fine-tuning model IndoBERT.
+</p>
+
+<p align="justify">
+Model terbaik berhasil mencapai akurasi sebesar 95% pada data testing, dengan nilai precision, recall, dan F1-score yang juga mencapai 95%. Hasil evaluasi menunjukkan bahwa model mampu mengklasifikasikan sentimen positif dan negatif secara seimbang tanpa bias terhadap salah satu kelas. Selain itu, nilai test loss yang relatif rendah menunjukkan bahwa model memiliki kemampuan generalisasi yang baik terhadap data yang belum pernah dilihat sebelumnya.
+</p>
+
+<p align="justify">
+Hasil confusion matrix juga menunjukkan bahwa sebagian besar data berhasil diprediksi dengan benar. Dari total 1.500 data testing, model mampu mengklasifikasikan 723 data negatif dan 702 data positif secara tepat, dengan jumlah kesalahan klasifikasi yang relatif kecil. Hal tersebut menunjukkan bahwa model IndoBERT mampu memahami konteks ulasan pengguna aplikasi kesehatan dengan baik.
+</p>
+
+- Perbandingan IndoBERT dan FastText
+
+<p align="justify">
+Sebagai validasi tambahan, penelitian ini juga melakukan eksperimen dengan mengganti embedding bawaan IndoBERT menggunakan embedding FastText. Pada eksperimen ini, arsitektur utama IndoBERT tetap dipertahankan, sementara perubahan dilakukan pada bagian representasi awal token sebelum diproses oleh encoder Transformer.
+</p>
+
+| Embedding | Accuracy | Precision | Recall | F1-Score | Test Loss |
+|---|---|---|---|---|---|
+| IndoBERT (Default) | 95.00% | 95.00% | 95.00% | 95.00% | 0.1884 |
+| FastText | 92.67% | 92.60% | 92.67% | 92.61% | 0.2382 | 
+
+<p align="justify">
+Hasil pengujian menunjukkan bahwa model dengan embedding FastText memperoleh akurasi sebesar 92,67% dengan F1-score sebesar 92,61%. Meskipun performanya cukup baik, hasil tersebut masih berada di bawah embedding bawaan IndoBERT yang mencapai akurasi dan F1-score sebesar 95%.
+</p>
+
+<p align="justify">
+Perbedaan performa tersebut disebabkan oleh karakteristik representasi yang digunakan oleh masing-masing embedding. Embedding bawaan IndoBERT menggunakan representasi kontekstual yang mampu memahami makna kata berdasarkan konteks kalimat secara keseluruhan. Sementara itu, FastText menggunakan representasi statis berbasis subword n-gram yang tidak sepenuhnya mempertimbangkan konteks kalimat.
+</p>
+
+<p align="justify">
+Meskipun demikian, hasil eksperimen menunjukkan bahwa FastText tetap mampu memberikan performa klasifikasi yang cukup kompetitif. Hal ini menunjukkan bahwa embedding tradisional seperti FastText masih memiliki potensi untuk digunakan pada sistem dengan kebutuhan komputasi yang lebih ringan, meskipun performanya masih sedikit di bawah embedding kontekstual milik IndoBERT.
+</p>
+
 - Sebagian besar ulasan pengguna memiliki sentimen positif
+<p align="justify">
+Klasifikasi sentimen data ulasan aplikasi kesehatan pada rentang waktu 1 Agustus 2024 hingga 31 Januari 2025, sebanyak 30.883 ulasan menggunakan model IndoBERT terbaik, didapatkan bahwa kelas terbanyak pada kelas positif, yang dimana sebanyak 20.101 ulasan bersentimen positif dan 10.782 ulasan bersentimen negatif. 
+</p>
+<p align="justify">
+Hasil ini menunjukkan bahwa kecenderungan opini masyarakat terhadap aplikasi kesehatan di Indonesia cenderung bersifat positif selama periode Agustus 2024 hingga Januari 2025. 
+</p>
+
+<p align="center">
+  <img src="assets/wc negatif final.png" width="300">
+</p>
+
+<p align="center">
+  <i>Gambar 1. Wordcloud Hasil Sentimen Negatif</i>
+</p>
+
+<p align="center">
+  <img src="assets/wc positif final.png" width="300">
+</p>
+
+<p align="center">
+  <i>Gambar 2. Wordcloud Hasil Sentimen Positif</i>
+</p>
+
 - Keluhan negatif umumnya berkaitan dengan:
   - Error aplikasi
   - Loading lambat
@@ -210,6 +278,7 @@ Dengan pendekatan berbasis Transformer, model mampu memahami konteks kalimat sec
 
 ## Author
 Syakira Tsania Muthmainnah
+
 syakiratsania24@gmail.com
 
 
